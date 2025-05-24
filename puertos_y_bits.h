@@ -12,30 +12,26 @@
 #define LED_6 0x40
 #define LED_7 0x80
 
+#define A     0
+#define B     1
+#define D     2
+
 typedef struct puertoDT{                            //Manejamos de esta manera los bits de los puertos, para poder acceder a cada bit por separado.
     uint16_t puertoA : 8;           //Mitad del puerto D son del AccA
     uint16_t puertoB : 8;           //La otra mitad son del AccB
 }puertoD_t;
 
-extern puertoD_t puertoLeds;                        //Necesitamos traer puertoLeds al .h para poder utilizar las macros de BITSET_A, BITCLEAR_A, BITGET_A, etc.
 
-#define BITSET(BF, N) (BF |= (0x1 << (N)))          //"Encendemos" el bit deseado, su valor pasa a ser 1
-#define BITCLEAR(BF, N) (BF &= ~(0x1 << N))         //"Apagamos" el bit indicado, su valor pasa a ser 0
-#define BITGET(BF, N) ((BF >> N) & 0x1)             //Nos dice el estado del bit que le indiquemos
-#define BITTOGGLE(BF, N) ((BF) ^= (0x1 << (N)))     //Pasa el bit al estado contrario
-#define MASKON(BF, MSK) (BF |= MSK)                 //Pone en 1 los bits en los que hay 1s en la máscara
-#define MASKOFF(BF, MSK) (BF &= ~MSK)               //Pone en 0 los bits en los que hay 1s en la máscara
-#define MASKTOGGLE(BF, MSK) (BF ^= MSK)             //Cambia el bit al estado contrario en los bits en los que hay 1s en la máscara
-
-#define BITSET_A(N)     (puertoLeds.puertoA |= (1 << (N)))  //se enciende (se pone en 1) en bit N del puerto A que controla los leds
-#define BITCLEAR_A(N)   (puertoLeds.puertoA &= ~(1 << (N))) //se apaga (se pone en 0) en bit N del puerto A que controla los leds
-#define BITGET_A(N)     ((puertoLeds.puertoA >> (N)) & 0x1) //obtenemos el estado del bit N del puerto A que es el del puerto de leds
-#define MASKTOGGLE_A(MSK) (puertoLeds.puertoA ^= MSK)       //misma funcion que MASKTOGGLE, pero para el puerto A
-#define MASKOFF_A(MSK)  (puertoLeds.puertoA &= ~MSK)        //misma funcion que MASKOFF pero solo para el puerto A
-#define MASKON_A(MSK)   (puertoLeds.puertoA |= MSK)         //misma funcion que MASKON pero para el puerto A
+void bitset(int puerto, int bit);
+void bitclear(int puerto, int bit);
+int bitget(int puerto, int bit);
+void masktoggle(int puerto, int msk);
+void maskoff(int puerto, int msk);
+void maskon(int puerto, int msk);
 
 
-void print_bits();                      //Función que sirve para imprimir el estado de todos los bits con los que está trabajando el usuario en el momento
+
+void print_bits(int puerto);                      //Función que sirve para imprimir el estado de todos los bits con los que está trabajando el usuario en el momento
 
 #endif
 
