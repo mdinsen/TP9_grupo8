@@ -4,9 +4,9 @@
 #include <stdint.h>             //librería que define tipos enteros con anchuras específicas, para poder trabajar más cómodamente con los bits
 
 
-#define A     0
-#define B     1
-#define D     2
+#define A     0                 //defino A como 0 para acceder al arreglo con el puntero al puertoA que corresponde a ese índice
+#define B     1                 //defino B como 1 para acceder al arreglo con el puntero al puertoB que corresponde a ese índice
+#define D     2                 
 
 typedef union{                            //Manejamos de esta manera los bits de los puertos, para poder acceder a cada bit por separado.
     uint16_t puertoD;
@@ -14,7 +14,7 @@ typedef union{                            //Manejamos de esta manera los bits de
         uint8_t  a;
         uint8_t  b; 
     }PuertosAB_t;
-}puertoD;
+}puertos_t;
 
 
 void bitset(int puerto, int bit);
@@ -26,7 +26,6 @@ void maskon(int puerto, int msk);
 
 
 
-void print_bits(int puerto);                      //Función que sirve para imprimir el estado de todos los bits con los que está trabajando el usuario en el momento
 
 #endif
 
