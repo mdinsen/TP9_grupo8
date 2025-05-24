@@ -16,7 +16,7 @@ int main(void){
         
         char siguiente = getchar();
         if (siguiente != '\n') {
-            printf("Entrada no valida. Ingrese solo UN caracter.\n");
+            printf("Entrada no valida. Ingrese solo UN caracter.\n");       //si se ingresa mas de un numero o mas de un caracter, no es una opcion valida, se le pide al usuario que vuelva a intentar
             while (siguiente != '\n' && siguiente != EOF){
                 siguiente = getchar();
             }
