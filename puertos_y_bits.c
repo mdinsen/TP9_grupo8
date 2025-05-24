@@ -2,32 +2,57 @@
 #include <stdint.h>
 #include "puertos_y_bits.h"
 
-static puertoD_t puertoLeds = {0,0};           //ambos puertos, A y B, se inicializan con 0s.
+static puertoD puertoLeds = {.puertoD = 0};           //ambos puertos, A y B, se inicializan con 0s.
 
-static uint8_t* puertos_ptr[3] = {(uint8_t*)&puertoLeds, (uint8_t*)&puertoLeds+1, (uint8_t*)&puertoLeds
-};
+static uint8_t* puertos_ptr[] = {(uint8_t*)&puertoLeds.PuertosAB_t.a, (uint8_t*)&puertoLeds.PuertosAB_t.b};
+
 void bitset(int puerto, int bit){
-    *puertos_ptr[puerto] |= (1 << (bit));
+    if(puerto != D){
+        *puertos_ptr[puerto] |= (1 << (bit));
+    }else{
+        puertoLeds.puertoD |= (1 << (bit));
+    }
 }
 
 void bitclear(int puerto, int bit){
-    *puertos_ptr[puerto] &= ~(1 << (bit));
+    if(puerto != D){
+        *puertos_ptr[puerto] &= ~(1 << (bit));
+    }else{
+        puertoLeds.puertoD |= (1 << (bit));
+    }
 }
 
 int bitget(int puerto, int bit){
-    return (*puertos_ptr[puerto] >> (bit) & 0x1);
+    if(puerto != D){
+        return (*puertos_ptr[puerto] >> (bit) & 0x1);
+    }else{
+        return (puertoLeds.puertoD >> ((bit) & 0x1));
+    }
+    
 }
 
 void masktoggle(int puerto, int msk){
-    *puertos_ptr[puerto] ^= msk;
+    if(puerto != D){
+        *puertos_ptr[puerto] ^= msk;
+    }else{
+        puertoLeds.puertoD ^= msk;
+    }
 }
 
 void maskoff(int puerto, int msk){
-    *puertos_ptr[puerto] &= ~msk;
+    if(puerto != D){
+        *puertos_ptr[puerto] &= ~msk;
+    }else{
+        puertoLeds.puertoD &= ~msk;
+    }
 }
 
 void maskon(int puerto, int msk){
-    *puertos_ptr[puerto] |= msk;
+    if(puerto != D){
+        *puertos_ptr[puerto] |= msk;
+    }else{
+        puertoLeds.puertoD |= msk;
+    }
 }
 
 void print_bits(int puerto){

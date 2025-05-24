@@ -3,23 +3,18 @@
 
 #include <stdint.h>             //librería que define tipos enteros con anchuras específicas, para poder trabajar más cómodamente con los bits
 
-#define LED_0 0x01
-#define LED_1 0x02
-#define LED_2 0x04
-#define LED_3 0x08                                  //Mascaras para el LED que corresponde a cada bit
-#define LED_4 0x10                                  //por ejemplo: bit 4 = 0x10 = 0001 0000
-#define LED_5 0x20
-#define LED_6 0x40
-#define LED_7 0x80
 
 #define A     0
 #define B     1
 #define D     2
 
-typedef struct puertoDT{                            //Manejamos de esta manera los bits de los puertos, para poder acceder a cada bit por separado.
-    uint16_t puertoA : 8;           //Mitad del puerto D son del AccA
-    uint16_t puertoB : 8;           //La otra mitad son del AccB
-}puertoD_t;
+typedef union{                            //Manejamos de esta manera los bits de los puertos, para poder acceder a cada bit por separado.
+    uint16_t puertoD;
+    struct PuertosAB{ 
+        uint8_t  a;
+        uint8_t  b; 
+    }PuertosAB_t;
+}puertoD;
 
 
 void bitset(int puerto, int bit);
