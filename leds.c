@@ -27,7 +27,10 @@ int main(void){
 
         if(esNumero(c)){
             n = ingresarNumero(c);
-            bitset(A, n);                  //Encendemos el bit "n" del puerto A que ingresó el usuario, en caso de que haya ingresado un numero valido: del 0 al 7
+            if(n>=0 && n<=7 && valido){
+                bitset(A, n);                  //Encendemos el bit "n" del puerto A que ingresó el usuario, en caso de que haya ingresado un numero valido: del 0 al 7
+
+            }
         }else{
             if(valido){
                 switch(c){

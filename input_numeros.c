@@ -2,7 +2,7 @@
 #include "input_numeros.h"
 
 int esNumero(char caracter) {
-    if (caracter >= '0' && caracter <= '7'){					//Si el caracter esta entre los valores de ASCII de '0' y '9', se 
+    if (caracter >= '0' && caracter <= '9'){					//Si el caracter esta entre los valores de ASCII de '0' y '9', se 
         return 1;												//trata de un numero.
     }
     else{
